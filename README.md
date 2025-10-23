@@ -1,4 +1,4 @@
-#Lucas's Neovim config
+# Lucas's Neovim config
 
 Makes uses of new features in nvim >=0.12
 
