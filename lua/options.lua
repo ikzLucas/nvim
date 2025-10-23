@@ -1,3 +1,4 @@
+-- Options for neovim - see :help option-list
 local options = {
    -- true color support
    termguicolors = true,
@@ -19,3 +20,6 @@ local options = {
 for k, v in pairs (options) do
 	vim.o[k] = v
 end
+
+-- enable plugins and indentation for autodetected filetypes
+vim.cmd.filetype("plugin indent on")
