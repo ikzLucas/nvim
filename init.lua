@@ -1,48 +1,43 @@
--- Lucas's neovim thingy - 2025-11-26
+-- Lucas's neovim thingy - 2025-11-27
 -- Requires neovim >=0.12.0 for native package manager and cmp stuff
--- Fck it we monofile
--- Modules in ./lua/
--- require('options')
--- require('keybinds')
 
 local keybind = vim.keymap.set
 -- map leader to space
 vim.g.mapleader = " "
 
--- type Leader + ex or lex in normal to quickly open netrw
-keybind("n", "<Leader>ex", "<Cmd>Ex %:p:h<CR>")
-keybind("n", "<Leader>lex", "<Cmd>Lex %:p:h<CR>")
+---- KEYBINDS ----
+keybind("n", "<Leader>ex", "<Cmd>Ex %:p:h<CR>")         -- open netrw
+keybind("n", "<Leader>lex", "<Cmd>Lex %:p:h<CR>")       -- split netrw left
+keybind("n", "<Leader>w", "<CMD>write<CR>")             -- Leader+w write
+keybind("n", "<Leader>vs", "<CMD>vs<CR>")               -- Leader+vs vertical split
+keybind("n", "<Leader>hs", "<CMD>hs<CR>")               -- Leader+hs horizontal split 
+keybind("n", "<Leader>lf", vim.lsp.buf.format)          -- LSP format code
+
+-- temp
 -- Leader + so to update and reload config
 keybind("n", "<Leader>so", "<CMD>update<CR> <CMD>source<CR>")
--- Leader keybind for write
-keybind("n", "<Leader>w", "<CMD>write<CR>")
 
 -- Options for neovim - see :help option-list
 local options = {
 ---- APPEARANCE ----
-    -- true color support
     termguicolors = true,
-    -- background color
     background = "light",
-	-- line numbers
+    signcolumn = "yes",
+	-- LINE NUMBERS
 	number = true,
 	relativenumber = true,
     numberwidth = 2,
-    -- scrolloff (lines always visible above/below cursor)
     scrolloff = 11,
 
 ---- SEARCH ----
-    -- ignore case in search
     ignorecase = true,
 
 ---- TYPING ----
-	-- four \t chars when pressing <tab>, replaced with whitespace
-	tabstop = 4,
+	tabstop = 4,                -- four \t chars when pressing <tab>, replaced with whitespace
 	shiftwidth = 4,
 	expandtab = true,
-    -- enable 0.12.0 native autocompletions
-    autocomplete = true,
-    autocompletedelay = 50,
+    autocomplete = true,        -- enable 0.12.0 native autocompletions
+    autocompletedelay = 50,     -- slight delay before autocomplete begins
 }
 
 -- For each option in options array, append vim.o to the option
@@ -52,3 +47,35 @@ end
 
 -- enable plugins and indentation for autodetected filetypes
 vim.cmd.filetype("plugin indent on")
+
+---- PLUGINS ----
+vim.pack.add({
+    {src = "https://github.com/kylechui/nvim-surround"},
+    {src = "https://github.com/miikanissi/modus-themes.nvim"},
+    {src = "https://github.com/neovim/nvim-lspconfig"},
+})
+
+require("nvim-surround").setup()
+require("modus-themes").setup({
+    style = "auto",
+    variant = "tinted", -- `default`, `tinted`, `deuteranopia`, and `tritanopia`
+    transparent = false,
+    dim_inactive = true,
+    hide_inactive_statusline = false,
+    line_nr_column_background = true,
+    sign_column_background = true,
+    styles = {
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = { },
+        variables = { },
+    },
+})
+vim.cmd("colorscheme modus")
+
+---- LSP ----
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('clangd')
+vim.lsp.enable('bashls')
+vim.lsp.enable('cssls')
+vim.lsp.enable('html')
