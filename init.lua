@@ -5,6 +5,8 @@ local keybind = vim.keymap.set
 -- map leader to space
 vim.g.mapleader = " "
 
+vim.diagnostic.config({ jump = { float = true }})
+
 ---- KEYBINDS ----
 keybind("n", "<Leader>ex", "<Cmd>Ex %:p:h<CR>")         -- open netrw
 keybind("n", "<Leader>lex", "<Cmd>Lex %:p:h<CR>")       -- split netrw left
@@ -12,6 +14,8 @@ keybind("n", "<Leader>w", "<CMD>write<CR>")             -- Leader+w write
 keybind("n", "<Leader>vs", "<CMD>vs<CR>")               -- Leader+vs vertical split
 keybind("n", "<Leader>hs", "<CMD>hs<CR>")               -- Leader+hs horizontal split 
 keybind("n", "<Leader>lf", vim.lsp.buf.format)          -- LSP format code
+keybind("n", "<Leader>d", vim.diagnostic.open_float)    -- LSP diagnostic - this is also <C-w>d
+
 
 -- temp
 -- Leader + so to update and reload config
