@@ -57,6 +57,7 @@ vim.pack.add({
    { src = "https://github.com/kylechui/nvim-surround" },
    { src = "https://github.com/miikanissi/modus-themes.nvim" },
    { src = "https://github.com/neovim/nvim-lspconfig" },
+   { src = "https://github.com/mason-org/mason.nvim" },
 })
 
 require("nvim-surround").setup()
@@ -78,8 +79,17 @@ require("modus-themes").setup({
 vim.cmd("colorscheme modus")
 
 ---- LSP ----
-vim.lsp.enable("lua_ls", "clangd", "bashls", "cssls", "html", "ansiblels", "jsonls")
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
 
+vim.lsp.enable("lua_ls", "clangd", "bashls", "cssls", "html", "ansiblels", "jsonls")
 vim.lsp.config("lua_ls",
    {
       settings = {
