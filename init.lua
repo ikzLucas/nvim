@@ -81,16 +81,16 @@ vim.cmd("colorscheme modus")
 
 ---- LSP ----
 require("mason").setup({
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-        }
-    }
+   ui = {
+      icons = {
+         package_installed = "✓",
+         package_pending = "➜",
+         package_uninstalled = "✗"
+      }
+   }
 })
 require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "ansiblels", "clangd" },
+   ensure_installed = { "lua_ls@3.15.0", "ansiblels", "clangd" },
 }
 vim.lsp.config("lua_ls",
    {
