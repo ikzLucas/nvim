@@ -90,7 +90,7 @@ require("mason").setup({
    }
 })
 require("mason-lspconfig").setup {
-   ensure_installed = { "lua_ls@3.15.0", "ansiblels", "clangd" },
+   ensure_installed = { "lua_ls@3.15.0", "ansiblels", "clangd", "powershell_es" },
 }
 vim.lsp.config("lua_ls",
    {
