@@ -16,11 +16,6 @@ keybind("n", "<Leader>hs", "<CMD>hs<CR>")            -- Leader+hs horizontal spl
 keybind("n", "<Leader>lf", vim.lsp.buf.format)       -- LSP format code
 keybind("n", "<Leader>d", vim.diagnostic.open_float) -- LSP diagnostic - this is also <C-w>d
 
-
--- temp
--- Leader + so to update and reload config
-keybind("n", "<Leader>so", "<CMD>update<CR> <CMD>source<CR>")
-
 -- Options for neovim - see :help option-list
 local options = {
    ---- APPEARANCE ----
