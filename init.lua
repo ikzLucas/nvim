@@ -4,9 +4,21 @@
 local keybind = vim.keymap.set
 -- map leader to space
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 vim.diagnostic.config({ jump = { float = true } })
 vim.g.netrw_liststyle = 3     -- netrw tree style by default
+vim.g.have_nerd_font = true
+
+-- highlight text when yanking
+vim.api.nvim_create_autocmd("TextYankPost", {
+   callback = function()
+      vim.hl.on_yank {
+         higroup = "Visual",
+         timeout = 300,
+      }
+   end,
+})
 
 ---- KEYBINDS ----
 keybind("n", "<Leader>ex", "<Cmd>Ex %:p:h<CR>")       -- Open netrw
@@ -15,21 +27,34 @@ keybind("n", "<Leader>rex", "<Cmd>Rex<CR>")           -- Return to previous netr
 keybind("n", "<Leader>vs", "<CMD>vs<CR>")             -- Leader+vs vertical split - this is also <C-w>v
 keybind("n", "<Leader>lf", vim.lsp.buf.format)        -- LSP format code
 keybind("n", "<Leader>d", vim.diagnostic.open_float)  -- LSP diagnostic - this is also <C-w>d
-
+keybind("n", "<Esc>", "<Cmd>nohlsearch<CR>")          -- Clear highlights from search when pressing ESC
+keybind("n", "<C-h>", "<C-w><C-h>", { desc = 'Move focus to the left window' })
+keybind("n", "<C-l>", "<C-w><C-l>", { desc = 'Move focus to the right window' })
+keybind("n", "<C-j>", "<C-w><C-j>", { desc = 'Move focus to the lower window' })
+keybind("n", "<C-k>", "<C-w><C-k>", { desc = 'Move focus to the upper window' })
 -- Options for neovim - see :help option-list
 local options = {
+   ---- EDITOR OPTIONS ----
+   confirm = true,         -- confirm for actions like quit
+   mouse = 'a',           -- mouse for resizing stuff
+
    ---- APPEARANCE ----
    termguicolors = true,
-   background = "light",
+   background = "dark",
    signcolumn = "yes",
+   splitright = true,
+   splitbelow = true,
+
    -- LINE NUMBERS
    number = true,
    relativenumber = true,
    numberwidth = 2,
    scrolloff = 11,
+   cursorline = true,
 
    ---- SEARCH ----
    ignorecase = true,
+   smartcase = true,
 
    ---- TYPING ----
    tabstop = 3, -- three \t chars when pressing <tab>, replaced with whitespace
@@ -37,6 +62,7 @@ local options = {
    expandtab = true,
    autocomplete = true,    -- enable 0.12.0 native autocompletions
    autocompletedelay = 50, -- slight delay before autocomplete begins
+   inccommand = 'split'    -- preview subsitutions live
 }
 
 -- For each option in options array, append vim.o to the option
