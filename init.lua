@@ -6,13 +6,15 @@ local keybind = vim.keymap.set
 vim.g.mapleader = " "
 
 vim.diagnostic.config({ jump = { float = true } })
+vim.g.netrw_liststyle = 3     -- netrw tree style by default
 
 ---- KEYBINDS ----
-keybind("n", "<Leader>ex", "<Cmd>Ex %:p:h<CR>")      -- open netrw
-keybind("n", "<Leader>lex", "<Cmd>Lex %:p:h<CR>")    -- split netrw left
-keybind("n", "<Leader>vs", "<CMD>vs<CR>")            -- Leader+vs vertical split
-keybind("n", "<Leader>lf", vim.lsp.buf.format)       -- LSP format code
-keybind("n", "<Leader>d", vim.diagnostic.open_float) -- LSP diagnostic - this is also <C-w>d
+keybind("n", "<Leader>ex", "<Cmd>Ex %:p:h<CR>")       -- Open netrw
+keybind("n", "<Leader>lex", "<Cmd>Lex %:p:h<CR>")     -- Split netrw left
+keybind("n", "<Leader>rex", "<Cmd>Rex<CR>")           -- Return to previous netrw window
+keybind("n", "<Leader>vs", "<CMD>vs<CR>")             -- Leader+vs vertical split - this is also <C-w>v
+keybind("n", "<Leader>lf", vim.lsp.buf.format)        -- LSP format code
+keybind("n", "<Leader>d", vim.diagnostic.open_float)  -- LSP diagnostic - this is also <C-w>d
 
 -- Options for neovim - see :help option-list
 local options = {
