@@ -10,6 +10,9 @@ vim.diagnostic.config({ jump = { float = true } })
 vim.g.netrw_liststyle = 3     -- netrw tree style by default
 vim.g.have_nerd_font = true
 
+-- Gentoo files fix
+vim.opt.rtp:append('/usr/share/vim/vimfiles')
+
 -- highlight text when yanking
 vim.api.nvim_create_autocmd("TextYankPost", {
    callback = function()
@@ -124,7 +127,7 @@ require("mason").setup({
    }
 })
 require("mason-lspconfig").setup {
-   ensure_installed = { "lua_ls@3.15.0", "ansiblels", "clangd", "powershell_es", "docker_language_server", "docker_compose_language_service" },
+   ensure_installed = { "lua_ls", "ansiblels", "clangd", "powershell_es", "docker_language_server", "docker_compose_language_service" },
 }
 vim.lsp.config("lua_ls",
    {
