@@ -152,6 +152,7 @@ require("mason-lspconfig").setup({
 		"powershell_es",
 		"docker_language_server",
 		"docker_compose_language_service",
+      "bashls",
 	},
 })
 vim.lsp.config("lua_ls", {
