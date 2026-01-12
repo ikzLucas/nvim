@@ -63,8 +63,9 @@ local options = {
 	tabstop = 3, -- three \t chars when pressing <tab>, replaced with whitespace
 	shiftwidth = 3,
 	expandtab = true,
-	autocomplete = true, -- enable 0.12.0 native autocompletions
-	autocompletedelay = 50, -- slight delay before autocomplete begins
+   -- commented out, I'm using blink now
+	-- autocomplete = true, -- enable 0.12.0 native autocompletions
+	-- autocompletedelay = 50, -- slight delay before autocomplete begins
 	inccommand = "split", -- preview subsitutions live
 }
 
@@ -83,6 +84,7 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+   { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
 })
 
 require("nvim-surround").setup()
@@ -118,18 +120,9 @@ vim.cmd("colorscheme modus")
 
 ---- LSP ----
 
--- from example in :h LspAttach
-vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("my.lsp", {}),
-	callback = function(args)
-		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
-		if client:supports_method("textDocument/completion") then
-			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-		end
-	end,
+require("blink.cmp").setup({
+   signature = { enabled = true },
 })
-vim.cmd("set completeopt+=noselect")
 
 -- filetypes
 vim.filetype.add({
